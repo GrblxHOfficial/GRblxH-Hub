@@ -1,3 +1,0 @@
-messagebox("HAKAR DETECTED", "OH NO", "IDK")
-
-game.Players.LocalPlayer:Kick("HAKAR")
