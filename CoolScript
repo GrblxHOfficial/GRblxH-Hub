@@ -1,3 +1,3 @@
-messagebox("HAKAR DETECTED")
+messagebox("HAKAR DETECTED", "OH NO")
 
 game.Players.LocalPlayer:Kick("HAKAR")
