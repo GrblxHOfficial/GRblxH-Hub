@@ -1,0 +1,36 @@
+local CommandsBuilder = {}
+
+local Commands = {}
+
+local Plr = game.Players.LocalPlayer
+local Chat = Plr.PlayerGui.Chat
+local GRHChatBar = Chat.Frame.ChatBarParentFrame.Frame.BoxFrame.Frame.ChatBar:Clone()
+GRHChatBar.Name = "GRHChatBar"
+GRHChatBar.TextScaled = true
+GRHChatBar.TextTransparency = 0.4
+GRHChatBar.Parent = Chat.Frame.ChatBarParentFrame.Frame.BoxFrame.Frame
+Chat.Frame.ChatBarParentFrame.Frame.BoxFrame.Frame.ChatBar:Destroy()
+
+GRHChatBar.Focused:Connect(function()
+	Chat.Frame.ChatBarParentFrame.Frame.BoxFrame.Frame.TextLabel.Visible = false
+end)
+
+GRHChatBar.FocusLost:Connect(function(EnterPressed)
+	if EnterPressed then
+		Chat.Frame.ChatBarParentFrame.Frame.BoxFrame.Frame.TextLabel.Visible = true
+		for i, v in pairs(Commands) do
+			if string.find(string.lower(GRHChatBar.Text), v.Prefix..v.CommandName) then
+				v.Function()
+			else
+				Plr:Chat(GRHChatBar.Text, "All")
+				GRHChatBar.Text = ""
+			end
+		end
+	end
+end)
+
+function CommandsBuilder:AddCommand(GivenPrefix, GivenCommand, GivenFunction)
+	table.insert(Commands, {Prefix = GivenPrefix, CommandName = GivenCommand, Function = GivenFunction})
+end
+
+return CommandsBuilder
