@@ -20,8 +20,8 @@ GRHChatBar.FocusLost:Connect(function(EnterPressed)
 		Chat.Frame.ChatBarParentFrame.Frame.BoxFrame.Frame.TextLabel.Visible = true
 		for i, v in pairs(Commands) do
 			if string.find(string.lower(GRHChatBar.Text), v.Prefix..v.CommandName) then
-				v.Function()
 				GRHChatBar.Text = ""
+				v.Function()
 			else
 				game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(GRHChatBar.Text, "All")
 				GRHChatBar.Text = ""
